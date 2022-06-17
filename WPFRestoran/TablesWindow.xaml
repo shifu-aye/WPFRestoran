@@ -1,0 +1,46 @@
+﻿<Window x:Class="WPFRestoran.TablesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFRestoran"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Бронирование столиков" Height="450" Width="1000" MaxHeight="450" MaxWidth="1000" WindowStartupLocation="CenterScreen" IsVisibleChanged="Window_IsVisibleChanged">
+    <Grid Background="#ffdadada">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="393*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="41*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="122*"/>
+            <ColumnDefinition Width="241*"/>
+            <ColumnDefinition Width="137*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="TableDG" IsReadOnly="True" Grid.Column="0" AutoGenerateColumns="False" IsVisibleChanged="TableDG_IsVisibleChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер столика" Binding="{Binding Id}"/>
+                <DataGridCheckBoxColumn x:Name="statusCB" Header="Статус столика" Binding="{Binding Status}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="UserDG" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер пользователя" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="BookingDG" Grid.Column="2" IsReadOnly="True" AutoGenerateColumns="False" IsVisibleChanged="BookingDG_IsVisibleChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер пользователя" Binding="{Binding FK_User}"/>
+                <DataGridTextColumn Header="Номер столика" Binding="{Binding FK_Table}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="bookBtn" VerticalAlignment="Bottom" Grid.Row="1" Grid.ColumnSpan="3" Content="Забронировать" Click="bookBtn_Click" Height="32" Margin="0,0,0,37" Grid.RowSpan="2"/>
+        <Button x:Name="backBtn" VerticalAlignment="Bottom" Grid.Row="2" Content="Назад" Grid.ColumnSpan="3" Click="backBtn_Click" Height="32" Margin="0 0 0 1"/>
+        <Button x:Name="delBookBtn" VerticalAlignment="Bottom" Grid.Row="3" Content="Удалить бронь" Grid.ColumnSpan="3" Click="delBookBtn_Click" Height="32"/>
+    </Grid>
+</Window>

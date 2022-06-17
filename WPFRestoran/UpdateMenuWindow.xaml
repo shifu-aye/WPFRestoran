@@ -1,0 +1,24 @@
+﻿<Window x:Class="WPFRestoran.UpdateMenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFRestoran"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        Title="Добавление и изменение меню" Height="450" Width="384" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="DishTB" materialDesign:HintAssist.Hint="Введите название блюда" Text="{Binding Dish}" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Row="0"/>
+        <TextBox x:Name="DescriptionTB" materialDesign:HintAssist.Hint="Напишите описание блюда" Text="{Binding Description}" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Row="1"/>
+        <TextBox x:Name="PriceTB" materialDesign:HintAssist.Hint="Напишите цену блюда" FontSize="20" Text="{Binding Price}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Grid.Row="2" Cursor="Arrow"/>
+        <Button x:Name="AcceptBtn1" Content="Сохранить" Grid.Row="3" Click="AcceptBtn1_Click"/>
+        <Button x:Name="BackBtn" Content="Назад" Grid.Row="4" Click="BackBtn_Click"/>
+    </Grid>
+</Window>

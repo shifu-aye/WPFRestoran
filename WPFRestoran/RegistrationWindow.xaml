@@ -1,0 +1,32 @@
+﻿<Window x:Class="WPFRestoran.RegistrationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFRestoran"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Окно регистрации" MinHeight="334" MinWidth="608" Height="464" Width="608" WindowStartupLocation="CenterScreen">
+    <Grid Background="#ffdadada" Margin="0,0,0,-6">
+        <Border VerticalAlignment="Center" MinWidth="400" MaxWidth="550" Background="White" Margin="15" Padding="30" CornerRadius="30" >
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Color="LightGray" ShadowDepth="0"/>
+            </Border.Effect>
+            <StackPanel>
+                <TextBlock Text="Ресторан 'Рататуй'" FontWeight="Bold" FontFamily="Comic Sans MS" FontSize="30" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+                <TextBox x:Name="LogTB" materialDesign:HintAssist.Hint="Введите логин(Email)" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <PasswordBox x:Name="PassPB" materialDesign:HintAssist.Hint="Введите пароль" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
+                <TextBox x:Name="SurnameTB" materialDesign:HintAssist.Hint="Введите фамилию" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <TextBox x:Name="NameTB" materialDesign:HintAssist.Hint="Введите имя" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <TextBox x:Name="PatronymicTB" materialDesign:HintAssist.Hint="Введите отчество" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <StackPanel Margin="0 0 0 20">
+                    <CheckBox x:Name="MaleCB" Content="Мужчина" Checked="MaleCB_Checked" IsChecked="False" Unchecked="MaleCB_Unchecked"/>
+                </StackPanel>
+                <Grid Margin="0 0 0 20">
+                    <Button x:Name="RegistBtn" Content="Регистрация" HorizontalAlignment="Center" Click="RegistBtn_Click"/>
+                    <Button x:Name="BackBtn" Content="Назад" HorizontalAlignment="Right" Click="BackBtn_Click" Style="{StaticResource MaterialDesignFlatButton}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
