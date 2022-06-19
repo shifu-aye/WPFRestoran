@@ -13,6 +13,7 @@ namespace WPFRestoran
         public TablesWindow()
         {
             InitializeComponent();
+
             db = new RestoranEntities();
             DataContext = RestoranEntities.GetContext().User;
             TableDG.ItemsSource = db.Table.ToList();
@@ -39,36 +40,40 @@ namespace WPFRestoran
         {
             try
             {
-                Models.Table table = TableDG.SelectedItem as Models.Table;
-                User user = UserDG.SelectedItem as User;
-                string userSNP = Convert.ToString(user.Surname) + " " + Convert.ToString(user.Name) + " " + Convert.ToString(user.Patronymic) + " имеет столик под номером №" + Convert.ToString(table.Id);
-                int tableID = table.Id;
-                int userID = user.Id;
-                Booking booking = new Booking();
-                booking.FK_Table = tableID;
-                booking.FK_User = userID;
+                if (TableDG.SelectedItems.Count > 0 && UserDG.SelectedItems.Count > 0)
+                {
+                    Models.Table table = TableDG.SelectedItem as Models.Table;
+                    User user = UserDG.SelectedItem as User;
+                    string userSNP = Convert.ToString(user.Surname) + " " + Convert.ToString(user.Name) + " " + Convert.ToString(user.Patronymic) + " имеет столик под номером №" + Convert.ToString(table.Id);
+                    int tableID = table.Id;
+                    int userID = user.Id;
+                    Booking booking = new Booking();
+                    booking.FK_Table = tableID;
+                    booking.FK_User = userID;
 
-                if (table.Status != false)
-                {
-                    MessageBox.Show("Этот столик уже занят");
+                    if (table.Status != false)
+                    {
+                        MessageBox.Show("Этот столик уже занят");
+                    }
+                    else
+                    {
+                        RestoranEntities.GetContext().Booking.Add(booking);
+                        table.Status = true;
+                        MessageBox.Show($"Столик забронирован:\n{userSNP}");
+
+                    }
+                    try
+                    {
+                        RestoranEntities.GetContext().SaveChanges();
+                        new TablesWindow().Show();
+                        Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
                 }
-                else
-                {
-                    RestoranEntities.GetContext().Booking.Add(booking);
-                    table.Status = true;
-                    MessageBox.Show($"Столик забронирован:\n{userSNP}");
-                    
-                }
-                try
-                {
-                    RestoranEntities.GetContext().SaveChanges();
-                    new TablesWindow().Show();
-                    Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
+                
             }
             catch (Exception ex)
             {
