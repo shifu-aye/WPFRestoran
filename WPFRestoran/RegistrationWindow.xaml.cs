@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Text;
+using System.Windows;
 using WPFRestoran.Models;
 
 namespace WPFRestoran
@@ -31,6 +33,39 @@ namespace WPFRestoran
             {
                 MaleCB.Content = "Мужчина";
             }
+        }
+        public bool Registration(string sName, string name, string pName, string login, string password)
+        {
+            StringBuilder errors = new StringBuilder();
+            if (string.IsNullOrEmpty(sName))
+                errors.AppendLine("Укажите фамилию");
+            if (string.IsNullOrEmpty(name))
+                errors.AppendLine("Укажите имя");
+            if (string.IsNullOrEmpty(pName))
+                errors.AppendLine("Укажите отчество");
+            if (string.IsNullOrEmpty(login))
+                errors.AppendLine("Укажите логин");
+            if (string.IsNullOrEmpty(password))
+                errors.AppendLine("Укажите пароль");
+            if (errors.Length > 0)
+            {
+                MessageBox.Show(errors.ToString());
+                return false;
+            }
+            int count = 0;
+            for (int s = 0; s < RestoranEntities.GetContext().User.Count(); s++)
+            {
+                if(login == RestoranEntities.GetContext().User.ToList()[s].Email)
+                {
+                    count++;
+                }
+            }
+            if(count > 0)
+            {
+                errors.AppendLine("Этот пользователь уже зарегистрирован!");
+                return false;
+            }    
+            return true;
         }
         private void RegistBtn_Click(object sender, RoutedEventArgs e)
         {

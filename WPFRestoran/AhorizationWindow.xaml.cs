@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Linq;
+using System.Windows;
 using WPFRestoran.Models;
 
 namespace WPFRestoran
@@ -11,7 +12,22 @@ namespace WPFRestoran
             InitializeComponent();
             db = new RestoranEntities();
         }
-
+        public bool Authorization(string login, string password, bool flag = false)
+        {
+            for(int i = 0; i < RestoranEntities.GetContext().User.Count(); i++)
+            {
+                if(login == RestoranEntities.GetContext().User.ToList()[i].Email && password == RestoranEntities.GetContext().User.ToList()[i].Password)
+                {
+                    flag = true;
+                    return true;
+                }
+            }
+            if (!flag)
+            {
+                MessageBox.Show("Такого пользователя не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return false;
+        }
         private void AuthBtn_Click(object sender, RoutedEventArgs e)
         {
             int count = 0;

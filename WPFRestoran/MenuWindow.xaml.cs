@@ -48,7 +48,25 @@ namespace WPFRestoran
             updateMenuWindow.Show();
             Close();
         }
-
+        public bool RemoveMenu(string dish) {
+            var menuForRemoving = MenuDG.SelectedItems.Cast<Models.Menu>().ToList();
+            dish = "";
+            if (MessageBox.Show($"Вы точно хотите удалить следующие {menuForRemoving.Count()} элементов?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    RestoranEntities.GetContext().Menu.RemoveRange(menuForRemoving);
+                    RestoranEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Данные удалены");
+                    MenuDG.ItemsSource = RestoranEntities.GetContext().Menu.ToList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+            return false;
+        }
         private void DelBtn_Click(object sender, RoutedEventArgs e)
         {
             var menuForRemoving = MenuDG.SelectedItems.Cast<Models.Menu>().ToList();
